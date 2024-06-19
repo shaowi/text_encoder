@@ -14,7 +14,7 @@ public class Encoder {
     }
 
     private int wrapIndex(int index, int totalCharacters) {
-        return ((index % totalCharacters) + totalCharacters) % totalCharacters;
+        return index % totalCharacters;
     }
 
     public String encode(String plainText) {
