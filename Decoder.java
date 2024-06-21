@@ -11,6 +11,10 @@ public class Decoder {
         return instance;
     }
 
+    private int wrapIndex(int index, int totalCharacters) {
+        return index % totalCharacters;
+    }
+
     public String decode(String encodedText) {
         ReferenceTable referenceTable = ReferenceTable.getInstance();
         char offsetCharacter = encodedText.charAt(0);
@@ -26,7 +30,7 @@ public class Decoder {
             }
 
             int curIndex = referenceTable.getIndex(character);
-            int decodedIndex = (curIndex + offsetValue) % referenceTable.getTotalCharacters();
+            int decodedIndex = wrapIndex(curIndex + offsetValue, referenceTable.getTotalCharacters());
             Character decodedChar = referenceTable.getCharacter(decodedIndex);
             if (decodedChar == null) {
                 throw new IllegalArgumentException("Invalid character in encoded text");
